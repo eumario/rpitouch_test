@@ -1,32 +1,22 @@
 import kivy
 from kivy.app import App
-from kivy.uix.widget import Widget
-from kivy.graphics import Rectangle
-from kivy.graphics import Color
-from kivy.graphics import Line
+from kivy.lang import Builder
+from kivy.uix.screenmanager import ScreenManager, Screen
 
-class Touch(Widget):
-    def __init__(self, **kwargs):
-        super(Touch, self).__init__(**kwargs)
-        
-        with self.canvas:
-            Color(0, 1, 0, .5, modge="rgba")
-            Line(points=(20,30, 400, 500, 60, 500))
-            Color(1,0,0,.5, mode="rgba")
-            self.rect = Rectangle(pos=(0,0), size=(50,50))
+class MainWindow(Screen):
+    pass
 
-    def on_touch_down(self, touch):
-        self.rect.pos = touch.pos
-        print("Mouse Down", touch)
-    
-    def on_touch_move(self, touch):
-        self.rect.pos = touch.pos
-        print("Mouse Move", touch)
+class SecondWindow(Screen):
+    pass
 
+class WindowManager(ScreenManager):
+    pass
+
+kv = Builder.load_file("rpitouch.kv")
 
 class RPiTouch(App):
     def build(self):
-        return Touch()
+        return kv
 
 if __name__ == "__main__":
     RPiTouch().run()
